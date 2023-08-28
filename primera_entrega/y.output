@@ -1,0 +1,1441 @@
+Terminals unused in grammar
+
+   PUN_Y_COM
+   COR_A
+   COR_C
+
+
+Gramática
+
+    0 $accept: programa $end
+
+    1 $@1: /* vacío */
+
+    2 programa: PROGRAM $@1 zona_declaracion algoritmo END
+
+    3 zona_declaracion: declaraciones
+
+    4 declaraciones: declaracion
+    5              | declaraciones declaracion
+
+    6 $@2: /* vacío */
+
+    7 declaracion: DECVAR LLAVE_A $@2 lista_declaracion LLAVE_C
+
+    8 lista_declaracion: lista_var DOS_PUNTOS lista_tipo
+    9                  | lista_declaracion lista_var DOS_PUNTOS lista_tipo
+
+   10 lista_var: ID
+   11          | lista_var COMA ID
+
+   12 lista_tipo: TIPO_INT
+   13           | TIPO_FLOAT
+   14           | TIPO_STRING
+
+   15 algoritmo: bloque
+
+   16 bloque: sentencia
+   17       | bloque sentencia
+
+   18 sentencia: asignacion
+   19          | seleccion
+   20          | ciclo
+   21          | entrada
+   22          | salida
+
+   23 ciclo: WHILE PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C
+
+   24 asignacion: ID OPAR_ASIG expresion
+
+   25 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C
+   26          | IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+   27 condicion: comparacion
+   28          | comparacion OP_LOG_AND comparacion
+   29          | comparacion OP_LOG_OR comparacion
+   30          | OP_LOG_NOT comparacion
+
+   31 comparacion: expresion COMP_IGUAL expresion
+   32            | expresion COMP_MAYOR expresion
+   33            | expresion COMP_MENOR expresion
+   34            | expresion COMP_MAYOR_IGUAL expresion
+   35            | expresion COMP_MENOR_IGUAL expresion
+   36            | expresion COMP_DISTINTO expresion
+
+   37 elementinthemiddle: INTHE_MIDDLE PAR_A lista_expresiones PAR_C
+
+   38 lista_expresiones: factor
+   39                  | lista_expresiones COMA factor
+
+   40 $@3: /* vacío */
+
+   41 expresion: expresion $@3 OP_MAS termino
+
+   42 $@4: /* vacío */
+
+   43 expresion: expresion $@4 OP_MENOS termino
+   44          | termino
+
+   45 termino: termino OP_MULT factor
+   46        | termino OP_DIV factor
+   47        | factor
+
+   48 factor: ID
+   49       | CTE_ENTERA
+   50       | CTE_REAL
+   51       | CTE_STRING
+   52       | PAR_A expresion PAR_C
+   53       | elementinthemiddle
+
+   54 entrada: READ PAR_A ID PAR_C
+
+   55 salida: WRITE CTE_STRING
+   56       | WRITE PAR_A ID PAR_C
+   57       | WRITE PAR_A CTE_STRING PAR_C
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+error (256)
+PROGRAM (258) 2
+END (259) 2
+IF (260) 25 26
+ELSE (261) 26
+WHILE (262) 23
+WRITE (263) 55 56 57
+READ (264) 54
+DECVAR (265) 7
+COMP_IGUAL (266) 31
+COMP_MAYOR (267) 32
+COMP_MENOR (268) 33
+COMP_MAYOR_IGUAL (269) 34
+COMP_MENOR_IGUAL (270) 35
+COMP_DISTINTO (271) 36
+OPAR_ASIG (272) 24
+TIPO_INT (273) 12
+TIPO_FLOAT (274) 13
+TIPO_STRING (275) 14
+CTE_ENTERA (276) 49
+CTE_REAL (277) 50
+CTE_STRING (278) 51 55 57
+OP_MAS (279) 41
+OP_MENOS (280) 43
+OP_MULT (281) 45
+OP_DIV (282) 46
+OP_LOG_AND (283) 28
+OP_LOG_OR (284) 29
+OP_LOG_NOT (285) 30
+DOS_PUNTOS (286) 8 9
+PUN_Y_COM (287)
+COMA (288) 11 39
+ID (289) 10 11 24 48 54 56
+PAR_A (290) 23 25 26 37 52 54 56 57
+PAR_C (291) 23 25 26 37 52 54 56 57
+LLAVE_A (292) 7 23 25 26
+LLAVE_C (293) 7 23 25 26
+COR_A (294)
+COR_C (295)
+INTHE_MIDDLE (296) 37
+
+
+No terminales con las reglas donde aparecen
+
+$accept (42)
+    en la izquierda: 0
+programa (43)
+    en la izquierda: 2, en la derecha: 0
+$@1 (44)
+    en la izquierda: 1, en la derecha: 2
+zona_declaracion (45)
+    en la izquierda: 3, en la derecha: 2
+declaraciones (46)
+    en la izquierda: 4 5, en la derecha: 3 5
+declaracion (47)
+    en la izquierda: 7, en la derecha: 4 5
+$@2 (48)
+    en la izquierda: 6, en la derecha: 7
+lista_declaracion (49)
+    en la izquierda: 8 9, en la derecha: 7 9
+lista_var (50)
+    en la izquierda: 10 11, en la derecha: 8 9 11
+lista_tipo (51)
+    en la izquierda: 12 13 14, en la derecha: 8 9
+algoritmo (52)
+    en la izquierda: 15, en la derecha: 2
+bloque (53)
+    en la izquierda: 16 17, en la derecha: 15 17 23 25 26
+sentencia (54)
+    en la izquierda: 18 19 20 21 22, en la derecha: 16 17
+ciclo (55)
+    en la izquierda: 23, en la derecha: 20
+asignacion (56)
+    en la izquierda: 24, en la derecha: 18
+seleccion (57)
+    en la izquierda: 25 26, en la derecha: 19
+condicion (58)
+    en la izquierda: 27 28 29 30, en la derecha: 23 25 26
+comparacion (59)
+    en la izquierda: 31 32 33 34 35 36, en la derecha: 27 28 29 30
+elementinthemiddle (60)
+    en la izquierda: 37, en la derecha: 53
+lista_expresiones (61)
+    en la izquierda: 38 39, en la derecha: 37 39
+expresion (62)
+    en la izquierda: 41 43 44, en la derecha: 24 31 32 33 34 35 36
+    41 43 52
+$@3 (63)
+    en la izquierda: 40, en la derecha: 41
+$@4 (64)
+    en la izquierda: 42, en la derecha: 43
+termino (65)
+    en la izquierda: 45 46 47, en la derecha: 41 43 44 45 46
+factor (66)
+    en la izquierda: 48 49 50 51 52 53, en la derecha: 38 39 45 46
+    47
+entrada (67)
+    en la izquierda: 54, en la derecha: 21
+salida (68)
+    en la izquierda: 55 56 57, en la derecha: 22
+
+
+estado 0
+
+    0 $accept: . programa $end
+
+    PROGRAM  desplazar e ir al estado 1
+
+    programa  ir al estado 2
+
+
+estado 1
+
+    2 programa: PROGRAM . $@1 zona_declaracion algoritmo END
+
+    $default  reduce usando la regla 1 ($@1)
+
+    $@1  ir al estado 3
+
+
+estado 2
+
+    0 $accept: programa . $end
+
+    $end  desplazar e ir al estado 4
+
+
+estado 3
+
+    2 programa: PROGRAM $@1 . zona_declaracion algoritmo END
+
+    DECVAR  desplazar e ir al estado 5
+
+    zona_declaracion  ir al estado 6
+    declaraciones     ir al estado 7
+    declaracion       ir al estado 8
+
+
+estado 4
+
+    0 $accept: programa $end .
+
+    $default  aceptar
+
+
+estado 5
+
+    7 declaracion: DECVAR . LLAVE_A $@2 lista_declaracion LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 9
+
+
+estado 6
+
+    2 programa: PROGRAM $@1 zona_declaracion . algoritmo END
+
+    IF     desplazar e ir al estado 10
+    WHILE  desplazar e ir al estado 11
+    WRITE  desplazar e ir al estado 12
+    READ   desplazar e ir al estado 13
+    ID     desplazar e ir al estado 14
+
+    algoritmo   ir al estado 15
+    bloque      ir al estado 16
+    sentencia   ir al estado 17
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 7
+
+    3 zona_declaracion: declaraciones .
+    5 declaraciones: declaraciones . declaracion
+
+    DECVAR  desplazar e ir al estado 5
+
+    $default  reduce usando la regla 3 (zona_declaracion)
+
+    declaracion  ir al estado 23
+
+
+estado 8
+
+    4 declaraciones: declaracion .
+
+    $default  reduce usando la regla 4 (declaraciones)
+
+
+estado 9
+
+    7 declaracion: DECVAR LLAVE_A . $@2 lista_declaracion LLAVE_C
+
+    $default  reduce usando la regla 6 ($@2)
+
+    $@2  ir al estado 24
+
+
+estado 10
+
+   25 seleccion: IF . PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C
+   26          | IF . PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+    PAR_A  desplazar e ir al estado 25
+
+
+estado 11
+
+   23 ciclo: WHILE . PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C
+
+    PAR_A  desplazar e ir al estado 26
+
+
+estado 12
+
+   55 salida: WRITE . CTE_STRING
+   56       | WRITE . PAR_A ID PAR_C
+   57       | WRITE . PAR_A CTE_STRING PAR_C
+
+    CTE_STRING  desplazar e ir al estado 27
+    PAR_A       desplazar e ir al estado 28
+
+
+estado 13
+
+   54 entrada: READ . PAR_A ID PAR_C
+
+    PAR_A  desplazar e ir al estado 29
+
+
+estado 14
+
+   24 asignacion: ID . OPAR_ASIG expresion
+
+    OPAR_ASIG  desplazar e ir al estado 30
+
+
+estado 15
+
+    2 programa: PROGRAM $@1 zona_declaracion algoritmo . END
+
+    END  desplazar e ir al estado 31
+
+
+estado 16
+
+   15 algoritmo: bloque .
+   17 bloque: bloque . sentencia
+
+    IF     desplazar e ir al estado 10
+    WHILE  desplazar e ir al estado 11
+    WRITE  desplazar e ir al estado 12
+    READ   desplazar e ir al estado 13
+    ID     desplazar e ir al estado 14
+
+    $default  reduce usando la regla 15 (algoritmo)
+
+    sentencia   ir al estado 32
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 17
+
+   16 bloque: sentencia .
+
+    $default  reduce usando la regla 16 (bloque)
+
+
+estado 18
+
+   20 sentencia: ciclo .
+
+    $default  reduce usando la regla 20 (sentencia)
+
+
+estado 19
+
+   18 sentencia: asignacion .
+
+    $default  reduce usando la regla 18 (sentencia)
+
+
+estado 20
+
+   19 sentencia: seleccion .
+
+    $default  reduce usando la regla 19 (sentencia)
+
+
+estado 21
+
+   21 sentencia: entrada .
+
+    $default  reduce usando la regla 21 (sentencia)
+
+
+estado 22
+
+   22 sentencia: salida .
+
+    $default  reduce usando la regla 22 (sentencia)
+
+
+estado 23
+
+    5 declaraciones: declaraciones declaracion .
+
+    $default  reduce usando la regla 5 (declaraciones)
+
+
+estado 24
+
+    7 declaracion: DECVAR LLAVE_A $@2 . lista_declaracion LLAVE_C
+
+    ID  desplazar e ir al estado 33
+
+    lista_declaracion  ir al estado 34
+    lista_var          ir al estado 35
+
+
+estado 25
+
+   25 seleccion: IF PAR_A . condicion PAR_C LLAVE_A bloque LLAVE_C
+   26          | IF PAR_A . condicion PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    OP_LOG_NOT    desplazar e ir al estado 39
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    condicion           ir al estado 43
+    comparacion         ir al estado 44
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 46
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 26
+
+   23 ciclo: WHILE PAR_A . condicion PAR_C LLAVE_A bloque LLAVE_C
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    OP_LOG_NOT    desplazar e ir al estado 39
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    condicion           ir al estado 49
+    comparacion         ir al estado 44
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 46
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 27
+
+   55 salida: WRITE CTE_STRING .
+
+    $default  reduce usando la regla 55 (salida)
+
+
+estado 28
+
+   56 salida: WRITE PAR_A . ID PAR_C
+   57       | WRITE PAR_A . CTE_STRING PAR_C
+
+    CTE_STRING  desplazar e ir al estado 50
+    ID          desplazar e ir al estado 51
+
+
+estado 29
+
+   54 entrada: READ PAR_A . ID PAR_C
+
+    ID  desplazar e ir al estado 52
+
+
+estado 30
+
+   24 asignacion: ID OPAR_ASIG . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 53
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 31
+
+    2 programa: PROGRAM $@1 zona_declaracion algoritmo END .
+
+    $default  reduce usando la regla 2 (programa)
+
+
+estado 32
+
+   17 bloque: bloque sentencia .
+
+    $default  reduce usando la regla 17 (bloque)
+
+
+estado 33
+
+   10 lista_var: ID .
+
+    $default  reduce usando la regla 10 (lista_var)
+
+
+estado 34
+
+    7 declaracion: DECVAR LLAVE_A $@2 lista_declaracion . LLAVE_C
+    9 lista_declaracion: lista_declaracion . lista_var DOS_PUNTOS lista_tipo
+
+    ID       desplazar e ir al estado 33
+    LLAVE_C  desplazar e ir al estado 54
+
+    lista_var  ir al estado 55
+
+
+estado 35
+
+    8 lista_declaracion: lista_var . DOS_PUNTOS lista_tipo
+   11 lista_var: lista_var . COMA ID
+
+    DOS_PUNTOS  desplazar e ir al estado 56
+    COMA        desplazar e ir al estado 57
+
+
+estado 36
+
+   49 factor: CTE_ENTERA .
+
+    $default  reduce usando la regla 49 (factor)
+
+
+estado 37
+
+   50 factor: CTE_REAL .
+
+    $default  reduce usando la regla 50 (factor)
+
+
+estado 38
+
+   51 factor: CTE_STRING .
+
+    $default  reduce usando la regla 51 (factor)
+
+
+estado 39
+
+   30 condicion: OP_LOG_NOT . comparacion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    comparacion         ir al estado 58
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 46
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 40
+
+   48 factor: ID .
+
+    $default  reduce usando la regla 48 (factor)
+
+
+estado 41
+
+   52 factor: PAR_A . expresion PAR_C
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 59
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 42
+
+   37 elementinthemiddle: INTHE_MIDDLE . PAR_A lista_expresiones PAR_C
+
+    PAR_A  desplazar e ir al estado 60
+
+
+estado 43
+
+   25 seleccion: IF PAR_A condicion . PAR_C LLAVE_A bloque LLAVE_C
+   26          | IF PAR_A condicion . PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+    PAR_C  desplazar e ir al estado 61
+
+
+estado 44
+
+   27 condicion: comparacion .
+   28          | comparacion . OP_LOG_AND comparacion
+   29          | comparacion . OP_LOG_OR comparacion
+
+    OP_LOG_AND  desplazar e ir al estado 62
+    OP_LOG_OR   desplazar e ir al estado 63
+
+    $default  reduce usando la regla 27 (condicion)
+
+
+estado 45
+
+   53 factor: elementinthemiddle .
+
+    $default  reduce usando la regla 53 (factor)
+
+
+estado 46
+
+   31 comparacion: expresion . COMP_IGUAL expresion
+   32            | expresion . COMP_MAYOR expresion
+   33            | expresion . COMP_MENOR expresion
+   34            | expresion . COMP_MAYOR_IGUAL expresion
+   35            | expresion . COMP_MENOR_IGUAL expresion
+   36            | expresion . COMP_DISTINTO expresion
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    COMP_IGUAL        desplazar e ir al estado 64
+    COMP_MAYOR        desplazar e ir al estado 65
+    COMP_MENOR        desplazar e ir al estado 66
+    COMP_MAYOR_IGUAL  desplazar e ir al estado 67
+    COMP_MENOR_IGUAL  desplazar e ir al estado 68
+    COMP_DISTINTO     desplazar e ir al estado 69
+
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 40 ($@3)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 47
+
+   44 expresion: termino .
+   45 termino: termino . OP_MULT factor
+   46        | termino . OP_DIV factor
+
+    OP_MULT  desplazar e ir al estado 72
+    OP_DIV   desplazar e ir al estado 73
+
+    $default  reduce usando la regla 44 (expresion)
+
+
+estado 48
+
+   47 termino: factor .
+
+    $default  reduce usando la regla 47 (termino)
+
+
+estado 49
+
+   23 ciclo: WHILE PAR_A condicion . PAR_C LLAVE_A bloque LLAVE_C
+
+    PAR_C  desplazar e ir al estado 74
+
+
+estado 50
+
+   57 salida: WRITE PAR_A CTE_STRING . PAR_C
+
+    PAR_C  desplazar e ir al estado 75
+
+
+estado 51
+
+   56 salida: WRITE PAR_A ID . PAR_C
+
+    PAR_C  desplazar e ir al estado 76
+
+
+estado 52
+
+   54 entrada: READ PAR_A ID . PAR_C
+
+    PAR_C  desplazar e ir al estado 77
+
+
+estado 53
+
+   24 asignacion: ID OPAR_ASIG expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 24 (asignacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 54
+
+    7 declaracion: DECVAR LLAVE_A $@2 lista_declaracion LLAVE_C .
+
+    $default  reduce usando la regla 7 (declaracion)
+
+
+estado 55
+
+    9 lista_declaracion: lista_declaracion lista_var . DOS_PUNTOS lista_tipo
+   11 lista_var: lista_var . COMA ID
+
+    DOS_PUNTOS  desplazar e ir al estado 78
+    COMA        desplazar e ir al estado 57
+
+
+estado 56
+
+    8 lista_declaracion: lista_var DOS_PUNTOS . lista_tipo
+
+    TIPO_INT     desplazar e ir al estado 79
+    TIPO_FLOAT   desplazar e ir al estado 80
+    TIPO_STRING  desplazar e ir al estado 81
+
+    lista_tipo  ir al estado 82
+
+
+estado 57
+
+   11 lista_var: lista_var COMA . ID
+
+    ID  desplazar e ir al estado 83
+
+
+estado 58
+
+   30 condicion: OP_LOG_NOT comparacion .
+
+    $default  reduce usando la regla 30 (condicion)
+
+
+estado 59
+
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+   52 factor: PAR_A expresion . PAR_C
+
+    PAR_C  desplazar e ir al estado 84
+
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 40 ($@3)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 60
+
+   37 elementinthemiddle: INTHE_MIDDLE PAR_A . lista_expresiones PAR_C
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    lista_expresiones   ir al estado 85
+    factor              ir al estado 86
+
+
+estado 61
+
+   25 seleccion: IF PAR_A condicion PAR_C . LLAVE_A bloque LLAVE_C
+   26          | IF PAR_A condicion PAR_C . LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 87
+
+
+estado 62
+
+   28 condicion: comparacion OP_LOG_AND . comparacion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    comparacion         ir al estado 88
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 46
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 63
+
+   29 condicion: comparacion OP_LOG_OR . comparacion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    comparacion         ir al estado 89
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 46
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 64
+
+   31 comparacion: expresion COMP_IGUAL . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 90
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 65
+
+   32 comparacion: expresion COMP_MAYOR . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 91
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 66
+
+   33 comparacion: expresion COMP_MENOR . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 92
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 67
+
+   34 comparacion: expresion COMP_MAYOR_IGUAL . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 93
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 68
+
+   35 comparacion: expresion COMP_MENOR_IGUAL . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 94
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 69
+
+   36 comparacion: expresion COMP_DISTINTO . expresion
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    expresion           ir al estado 95
+    termino             ir al estado 47
+    factor              ir al estado 48
+
+
+estado 70
+
+   41 expresion: expresion $@3 . OP_MAS termino
+
+    OP_MAS  desplazar e ir al estado 96
+
+
+estado 71
+
+   43 expresion: expresion $@4 . OP_MENOS termino
+
+    OP_MENOS  desplazar e ir al estado 97
+
+
+estado 72
+
+   45 termino: termino OP_MULT . factor
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    factor              ir al estado 98
+
+
+estado 73
+
+   46 termino: termino OP_DIV . factor
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    factor              ir al estado 99
+
+
+estado 74
+
+   23 ciclo: WHILE PAR_A condicion PAR_C . LLAVE_A bloque LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 100
+
+
+estado 75
+
+   57 salida: WRITE PAR_A CTE_STRING PAR_C .
+
+    $default  reduce usando la regla 57 (salida)
+
+
+estado 76
+
+   56 salida: WRITE PAR_A ID PAR_C .
+
+    $default  reduce usando la regla 56 (salida)
+
+
+estado 77
+
+   54 entrada: READ PAR_A ID PAR_C .
+
+    $default  reduce usando la regla 54 (entrada)
+
+
+estado 78
+
+    9 lista_declaracion: lista_declaracion lista_var DOS_PUNTOS . lista_tipo
+
+    TIPO_INT     desplazar e ir al estado 79
+    TIPO_FLOAT   desplazar e ir al estado 80
+    TIPO_STRING  desplazar e ir al estado 81
+
+    lista_tipo  ir al estado 101
+
+
+estado 79
+
+   12 lista_tipo: TIPO_INT .
+
+    $default  reduce usando la regla 12 (lista_tipo)
+
+
+estado 80
+
+   13 lista_tipo: TIPO_FLOAT .
+
+    $default  reduce usando la regla 13 (lista_tipo)
+
+
+estado 81
+
+   14 lista_tipo: TIPO_STRING .
+
+    $default  reduce usando la regla 14 (lista_tipo)
+
+
+estado 82
+
+    8 lista_declaracion: lista_var DOS_PUNTOS lista_tipo .
+
+    $default  reduce usando la regla 8 (lista_declaracion)
+
+
+estado 83
+
+   11 lista_var: lista_var COMA ID .
+
+    $default  reduce usando la regla 11 (lista_var)
+
+
+estado 84
+
+   52 factor: PAR_A expresion PAR_C .
+
+    $default  reduce usando la regla 52 (factor)
+
+
+estado 85
+
+   37 elementinthemiddle: INTHE_MIDDLE PAR_A lista_expresiones . PAR_C
+   39 lista_expresiones: lista_expresiones . COMA factor
+
+    COMA   desplazar e ir al estado 102
+    PAR_C  desplazar e ir al estado 103
+
+
+estado 86
+
+   38 lista_expresiones: factor .
+
+    $default  reduce usando la regla 38 (lista_expresiones)
+
+
+estado 87
+
+   25 seleccion: IF PAR_A condicion PAR_C LLAVE_A . bloque LLAVE_C
+   26          | IF PAR_A condicion PAR_C LLAVE_A . bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+    IF     desplazar e ir al estado 10
+    WHILE  desplazar e ir al estado 11
+    WRITE  desplazar e ir al estado 12
+    READ   desplazar e ir al estado 13
+    ID     desplazar e ir al estado 14
+
+    bloque      ir al estado 104
+    sentencia   ir al estado 17
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 88
+
+   28 condicion: comparacion OP_LOG_AND comparacion .
+
+    $default  reduce usando la regla 28 (condicion)
+
+
+estado 89
+
+   29 condicion: comparacion OP_LOG_OR comparacion .
+
+    $default  reduce usando la regla 29 (condicion)
+
+
+estado 90
+
+   31 comparacion: expresion COMP_IGUAL expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 31 (comparacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 91
+
+   32 comparacion: expresion COMP_MAYOR expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 32 (comparacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 92
+
+   33 comparacion: expresion COMP_MENOR expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 33 (comparacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 93
+
+   34 comparacion: expresion COMP_MAYOR_IGUAL expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 34 (comparacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 94
+
+   35 comparacion: expresion COMP_MENOR_IGUAL expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 35 (comparacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 95
+
+   36 comparacion: expresion COMP_DISTINTO expresion .
+   41 expresion: expresion . $@3 OP_MAS termino
+   43          | expresion . $@4 OP_MENOS termino
+
+    OP_MAS    reduce usando la regla 40 ($@3)
+    OP_MENOS  reduce usando la regla 42 ($@4)
+    $default  reduce usando la regla 36 (comparacion)
+
+    $@3  ir al estado 70
+    $@4  ir al estado 71
+
+
+estado 96
+
+   41 expresion: expresion $@3 OP_MAS . termino
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    termino             ir al estado 105
+    factor              ir al estado 48
+
+
+estado 97
+
+   43 expresion: expresion $@4 OP_MENOS . termino
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    termino             ir al estado 106
+    factor              ir al estado 48
+
+
+estado 98
+
+   45 termino: termino OP_MULT factor .
+
+    $default  reduce usando la regla 45 (termino)
+
+
+estado 99
+
+   46 termino: termino OP_DIV factor .
+
+    $default  reduce usando la regla 46 (termino)
+
+
+estado 100
+
+   23 ciclo: WHILE PAR_A condicion PAR_C LLAVE_A . bloque LLAVE_C
+
+    IF     desplazar e ir al estado 10
+    WHILE  desplazar e ir al estado 11
+    WRITE  desplazar e ir al estado 12
+    READ   desplazar e ir al estado 13
+    ID     desplazar e ir al estado 14
+
+    bloque      ir al estado 107
+    sentencia   ir al estado 17
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 101
+
+    9 lista_declaracion: lista_declaracion lista_var DOS_PUNTOS lista_tipo .
+
+    $default  reduce usando la regla 9 (lista_declaracion)
+
+
+estado 102
+
+   39 lista_expresiones: lista_expresiones COMA . factor
+
+    CTE_ENTERA    desplazar e ir al estado 36
+    CTE_REAL      desplazar e ir al estado 37
+    CTE_STRING    desplazar e ir al estado 38
+    ID            desplazar e ir al estado 40
+    PAR_A         desplazar e ir al estado 41
+    INTHE_MIDDLE  desplazar e ir al estado 42
+
+    elementinthemiddle  ir al estado 45
+    factor              ir al estado 108
+
+
+estado 103
+
+   37 elementinthemiddle: INTHE_MIDDLE PAR_A lista_expresiones PAR_C .
+
+    $default  reduce usando la regla 37 (elementinthemiddle)
+
+
+estado 104
+
+   17 bloque: bloque . sentencia
+   25 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque . LLAVE_C
+   26          | IF PAR_A condicion PAR_C LLAVE_A bloque . LLAVE_C ELSE LLAVE_A bloque LLAVE_C
+
+    IF       desplazar e ir al estado 10
+    WHILE    desplazar e ir al estado 11
+    WRITE    desplazar e ir al estado 12
+    READ     desplazar e ir al estado 13
+    ID       desplazar e ir al estado 14
+    LLAVE_C  desplazar e ir al estado 109
+
+    sentencia   ir al estado 32
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 105
+
+   41 expresion: expresion $@3 OP_MAS termino .
+   45 termino: termino . OP_MULT factor
+   46        | termino . OP_DIV factor
+
+    OP_MULT  desplazar e ir al estado 72
+    OP_DIV   desplazar e ir al estado 73
+
+    $default  reduce usando la regla 41 (expresion)
+
+
+estado 106
+
+   43 expresion: expresion $@4 OP_MENOS termino .
+   45 termino: termino . OP_MULT factor
+   46        | termino . OP_DIV factor
+
+    OP_MULT  desplazar e ir al estado 72
+    OP_DIV   desplazar e ir al estado 73
+
+    $default  reduce usando la regla 43 (expresion)
+
+
+estado 107
+
+   17 bloque: bloque . sentencia
+   23 ciclo: WHILE PAR_A condicion PAR_C LLAVE_A bloque . LLAVE_C
+
+    IF       desplazar e ir al estado 10
+    WHILE    desplazar e ir al estado 11
+    WRITE    desplazar e ir al estado 12
+    READ     desplazar e ir al estado 13
+    ID       desplazar e ir al estado 14
+    LLAVE_C  desplazar e ir al estado 110
+
+    sentencia   ir al estado 32
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 108
+
+   39 lista_expresiones: lista_expresiones COMA factor .
+
+    $default  reduce usando la regla 39 (lista_expresiones)
+
+
+estado 109
+
+   25 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C .
+   26          | IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C . ELSE LLAVE_A bloque LLAVE_C
+
+    ELSE  desplazar e ir al estado 111
+
+    $default  reduce usando la regla 25 (seleccion)
+
+
+estado 110
+
+   23 ciclo: WHILE PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C .
+
+    $default  reduce usando la regla 23 (ciclo)
+
+
+estado 111
+
+   26 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C ELSE . LLAVE_A bloque LLAVE_C
+
+    LLAVE_A  desplazar e ir al estado 112
+
+
+estado 112
+
+   26 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A . bloque LLAVE_C
+
+    IF     desplazar e ir al estado 10
+    WHILE  desplazar e ir al estado 11
+    WRITE  desplazar e ir al estado 12
+    READ   desplazar e ir al estado 13
+    ID     desplazar e ir al estado 14
+
+    bloque      ir al estado 113
+    sentencia   ir al estado 17
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 113
+
+   17 bloque: bloque . sentencia
+   26 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque . LLAVE_C
+
+    IF       desplazar e ir al estado 10
+    WHILE    desplazar e ir al estado 11
+    WRITE    desplazar e ir al estado 12
+    READ     desplazar e ir al estado 13
+    ID       desplazar e ir al estado 14
+    LLAVE_C  desplazar e ir al estado 114
+
+    sentencia   ir al estado 32
+    ciclo       ir al estado 18
+    asignacion  ir al estado 19
+    seleccion   ir al estado 20
+    entrada     ir al estado 21
+    salida      ir al estado 22
+
+
+estado 114
+
+   26 seleccion: IF PAR_A condicion PAR_C LLAVE_A bloque LLAVE_C ELSE LLAVE_A bloque LLAVE_C .
+
+    $default  reduce usando la regla 26 (seleccion)
